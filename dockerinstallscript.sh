@@ -6,7 +6,7 @@
 # Display welcome message
 clear
 echo "-------------------------"
-echo "Script to install Docker on Chromebook"
+echo "Script to install Docker"
 echo "-------------------------"
 echo "By: therealabela [] github.com/therealabela"
 echo "-------------------------"
