@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# A script to install Docker on a Chromebook running Debian.
+# A script to install Docker on Debian.
 # Author: therealabela | github.com/therealabela
 
 # Display welcome message
