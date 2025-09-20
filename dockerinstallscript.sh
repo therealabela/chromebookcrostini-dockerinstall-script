@@ -1,50 +1,109 @@
 #!/bin/bash
-
-# A script to install Docker on Debian.
+# ============================================
+# Universal Docker Installer Script
 # Author: therealabela | github.com/therealabela
+# Works on Debian/Ubuntu, Fedora/RHEL/CentOS, Arch/Manjaro, openSUSE/SUSE derivatives
+# ============================================
 
-# Display welcome message
+# Clear screen and show welcome
 clear
 echo "-------------------------"
-echo "Script to install Docker"
+echo "🚀 Universal Docker Installer 🚀"
 echo "-------------------------"
-echo "By: therealabela [] github.com/therealabela"
+echo "By: therealabela | github.com/therealabela"
 echo "-------------------------"
 echo "Running Installation Script:"
-echo "This may take 5-10 min!"
+echo "This may take 5-10 min depending on your system!"
 echo "-------------------------"
 
-# Update and install required dependencies
-sudo apt update -y
-sudo apt install ca-certificates curl gnupg lsb-release -y
+# Detect OS & family
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    OS=$ID
+    FAMILY=$ID_LIKE
+else
+    echo "[ERROR] Cannot detect OS. Exiting."
+    exit 1
+fi
 
-# Add Docker's official GPG key
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo "[INFO] Detected OS: $OS (family: $FAMILY)"
 
-# Add the Docker APT repository to sources.list.d
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+# Normalize OS family for common derivatives
+case "$OS" in
+    debian|ubuntu) FAMILY="debian" ;;
+    fedora|rhel|centos) FAMILY="fedora" ;;
+    arch|manjaro) FAMILY="arch" ;;
+    opensuse*|sles) FAMILY="suse" ;;
+esac
 
-# Update the package index again with the new repository
-sudo apt update
+# Update & Install Docker based on family
+case "$FAMILY" in
+    *debian*)
+        echo "-------------------------"
+        echo "Installing Docker (Debian/Ubuntu derivative)"
+        echo "-------------------------"
+        sudo apt update -y
+        sudo apt install -y ca-certificates curl gnupg lsb-release
+        sudo mkdir -p /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/$OS/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$OS $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo apt update -y
+        sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+        ;;
+    *fedora*)
+        echo "-------------------------"
+        echo "Installing Docker (Fedora/RHEL/CentOS derivative)"
+        echo "-------------------------"
+        sudo dnf -y install dnf-plugins-core
+        sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+        sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+        ;;
+    *arch*)
+        echo "-------------------------"
+        echo "Installing Docker (Arch/Manjaro derivative)"
+        echo "-------------------------"
+        sudo pacman -Sy --noconfirm docker
+        ;;
+    *suse*)
+        echo "-------------------------"
+        echo "Installing Docker (openSUSE/SUSE derivative)"
+        echo "-------------------------"
+        sudo zypper install -y docker
+        ;;
+    *)
+        echo "[ERROR] Unsupported distribution: $OS ($FAMILY)"
+        exit 1
+        ;;
+esac
 
-# Install Docker packages
-sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-
-# Verify Installation and update with hello-world
+# Update system 
 clear
 echo "-------------------------"
-echo "Updating and Upgrading"
+echo "Updating and Upgrading Packages"
 echo "-------------------------"
-sudo apt update -y
-sudo apt upgrade -y
+if [[ $FAMILY == "debian" ]]; then
+    sudo apt update -y && sudo apt upgrade -y
+elif [[ $FAMILY == "fedora" ]]; then
+    sudo dnf update -y
+elif [[ $FAMILY == "arch" ]]; then
+    sudo pacman -Syu --noconfirm
+elif [[ $FAMILY == "suse" ]]; then
+    sudo zypper refresh && sudo zypper update -y
+fi
 
+# Start and enable Docker service
+echo "-------------------------"
+echo "Starting Docker Service"
+echo "-------------------------"
+sudo systemctl enable --now docker || echo "[WARN] Could not enable Docker service"
+
+# Verify installation
 clear
 echo "-------------------------"
-echo "Verify Installation"
+echo "Verify Docker Installation"
 echo "Check if there is output on the next line!"
 echo "-------------------------"
 sudo docker run hello-world
 echo "-------------------------"
-echo "Script Complete!"
+echo "🎉 Script Complete! Docker is installed! 🎉"
 echo "-------------------------"
