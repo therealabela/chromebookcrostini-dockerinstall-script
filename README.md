@@ -8,6 +8,6 @@ After the command completes, type the following into the terminal "./dockerinsta
 
 ## How to install | curl
 Before you continue, check if you have curl installed by running "curl" in a terminal window.
-If you have curl installed, run the following command, __"curl -fsSL https://raw.githubusercontent.com/therealabela/unoffical-dockerinstall-script/main/dockerinstallscript.sh | sudo bash"__
+If you have curl installed, run the following command, **`curl -fsSL https://raw.githubusercontent.com/therealabela/unoffical-dockerinstall-script/main/dockerinstallscript.sh | sudo bash`**
 ## How the script "tests" if it installed correctly
 After the script is finshed, the script will say "Verify Installation" before running Docker's "hello-world" test container. All you really need to do to check is after the "Verify Installation" line; if the output is good!
