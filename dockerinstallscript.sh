@@ -31,7 +31,14 @@ sudo apt update
 # Install Docker packages
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
-# Verify Installation with hello-world
+# Verify Installation and update with hello-world
+clear
+echo "-------------------------"
+echo "Updating and Upgrading"
+echo "-------------------------"
+sudo apt update -y
+sudo apt upgrade -y
+
 clear
 echo "-------------------------"
 echo "Verify Installation"
