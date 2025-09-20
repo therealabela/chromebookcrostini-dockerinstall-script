@@ -1,5 +1,5 @@
-# Docker Script | Linux Debian
-A simple Debian Script that lets you install Docker easily using a short command that is easy to understand to a Linux user.
+# Docker Script | Linux
+A simple Script that lets you install Docker easily using a short command that is easy to understand to a Linux user.
 
 ## How to install
 First, paste your .sh into your "Linux Files" folder.
