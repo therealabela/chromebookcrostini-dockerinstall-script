@@ -1,13 +1,94 @@
-# Docker Script | Linux
-A simple Script that lets you install Docker easily using a short command that is easy to understand to a Linux user.
+# 🐳  Docker Installer Script | Linux
 
-## How to install | Local
-First, paste your .sh into your "Linux Files" folder.
-Second, open a new terminal window and type the following command "chmod +x dockerinstallscript.sh", because newly created script files don't have permission to be executed as a program. You must add this permission using chmod.
-After the command completes, type the following into the terminal "./dockerinstallscript.sh" and let my script "cook"! 
+A simple script that lets you **easily install Docker on Linux** with a single command.  
+Works on **Debian/Ubuntu, Arch/Manjaro, Fedora, and openSUSE/SUSE**.
 
-## How to install | curl
-Before you continue, check if you have curl installed by running "curl" in a terminal window.
-If you have curl installed, run the following command, **`curl -fsSL https://raw.githubusercontent.com/therealabela/unoffical-dockerinstall-script/main/dockerinstallscript.sh | sudo bash`**
-## How the script "tests" if it installed correctly
-After the script is finshed, the script will say "Verify Installation" before running Docker's "hello-world" test container. All you really need to do to check is after the "Verify Installation" line; if the output is good!
+---
+
+## ⚙️ Requirements
+
+- A Linux system with `sudo` privileges  
+- `curl` installed (only for the curl method)
+
+---
+
+## 💻 How to Install | Local
+
+1. Place your `.sh` file into your "Linux Files" folder.  
+2. Open a terminal window and give the script execute permission:
+
+```bash
+chmod +x dockerinstallscript.sh
+```
+
+3. Run the script:
+
+```bash
+./dockerinstallscript.sh
+```
+
+4. Let my script “cook” it will install Docker and all necessary dependencies.
+
+---
+
+## 🌐 How to Install | curl
+
+1. Check if `curl` is installed:
+
+```bash
+curl --version
+```
+
+2. Run the following command to install Docker directly from this Githup Repo:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/therealabela/unoffical-dockerinstall-script/main/dockerinstallscript.sh | sudo bash
+```
+
+---
+
+## ✅ How the Script Verifies Installation
+
+After installation, the script will display:
+
+```
+Verify Installation
+```
+
+It will then run Docker's `hello-world` container.  
+
+You can also test manually:
+
+```bash
+sudo docker run hello-world
+```
+
+If you see output like:
+
+```
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+```
+then Docker was installed successfully. ✅
+
+---
+
+🐧 Supported Linux Distributions
+
+- Debian / Ubuntu  
+- Arch / Manjaro  
+- Fedora / RHEL / CentOS  
+- openSUSE / SUSE
+
+---
+
+## ⚡ Notes
+
+If something goes wrong, try updating your system first:
+
+Make sure your user has `sudo` privileges.
+
+---
+
+Made by [therealabela](https://github.com/therealabela) :D
+
