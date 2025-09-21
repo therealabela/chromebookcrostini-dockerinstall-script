@@ -8,7 +8,7 @@
 # Clear screen and show welcome
 clear
 echo "-------------------------"
-echo "🚀 Universal Docker Installer 🚀"
+echo "🚀 Unoffical Docker Installer 🚀"
 echo "-------------------------"
 echo "By: therealabela | github.com/therealabela"
 echo "-------------------------"
