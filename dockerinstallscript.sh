@@ -5,13 +5,13 @@
 # Works on Debian/Ubuntu, Fedora/RHEL/CentOS, Arch/Manjaro, openSUSE/SUSE derivatives
 # ============================================
 
-# Show big fat warning
-clear
+echo
 echo "====================================================="
 echo "⚠️ WARNING ⚠️"
 echo "I am NOT affiliated with https://www.docker.com/ or its creators."
 echo "This script is a personal project and completely unofficial!"
 echo "I just want to make it easier for people to install Docker."
+echo "Use at your own risk."
 echo "====================================================="
 echo
 read -p "Press Enter to continue or Ctrl+C to cancel..."
@@ -121,7 +121,7 @@ clear
 echo "-------------------------"
 echo "Verify Docker Installation"
 echo "-------------------------"
-if sudo docker run hello-world >/dev/null 2>&1; then
+if sudo docker run hello-world; then
     echo "✅ Docker is working correctly!"
 else
     echo "⚠️ Docker installation completed, but the hello-world test failed."
