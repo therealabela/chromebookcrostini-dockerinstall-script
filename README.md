@@ -5,6 +5,11 @@ Works on **Debian/Ubuntu, Arch/Manjaro, Fedora, and openSUSE/SUSE**.
 
 ---
 
+⚠️ WARNING ⚠️: I am **NOT** affilited with https://www.docker.com/ or their creators. This Repo was a personal project and **unoffical**!
+I just want to make it easy for people to install Docker!
+
+---
+
 ## ⚙️ Requirements
 
 - A Linux system with `sudo` privileges  
