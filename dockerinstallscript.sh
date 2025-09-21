@@ -1,9 +1,20 @@
 #!/bin/bash
 # ============================================
-# Universal Docker Installer Script
+# Universal Docker Installer Script (Unofficial)
 # Author: therealabela | github.com/therealabela
 # Works on Debian/Ubuntu, Fedora/RHEL/CentOS, Arch/Manjaro, openSUSE/SUSE derivatives
 # ============================================
+
+# Show big fat warning
+clear
+echo "====================================================="
+echo "⚠️ WARNING ⚠️"
+echo "I am NOT affiliated with https://www.docker.com/ or its creators."
+echo "This script is a personal project and completely unofficial!"
+echo "I just want to make it easier for people to install Docker."
+echo "====================================================="
+echo
+read -p "Press Enter to continue or Ctrl+C to cancel..."
 
 # Clear screen and show welcome
 clear
@@ -28,7 +39,7 @@ fi
 
 echo "[INFO] Detected OS: $OS (family: $FAMILY)"
 
-# Normalize OS family for common derivatives
+# Normalize OS family
 case "$OS" in
     debian|ubuntu) FAMILY="debian" ;;
     fedora|rhel|centos) FAMILY="fedora" ;;
@@ -36,7 +47,7 @@ case "$OS" in
     opensuse*|sles) FAMILY="suse" ;;
 esac
 
-# Update & Install Docker based on family
+# Update & Install Docker
 case "$FAMILY" in
     *debian*)
         echo "-------------------------"
@@ -97,13 +108,26 @@ echo "Starting Docker Service"
 echo "-------------------------"
 sudo systemctl enable --now docker || echo "[WARN] Could not enable Docker service"
 
+# Add user to docker group
+echo "-------------------------"
+echo "Configuring Docker Permissions"
+echo "-------------------------"
+sudo groupadd docker 2>/dev/null || true
+sudo usermod -aG docker $USER
+echo "[INFO] You may need to log out and log back in for group changes to take effect."
+
 # Verify installation
 clear
 echo "-------------------------"
 echo "Verify Docker Installation"
-echo "Check if there is output on the next line!"
 echo "-------------------------"
-sudo docker run hello-world
+if sudo docker run hello-world >/dev/null 2>&1; then
+    echo "✅ Docker is working correctly!"
+else
+    echo "⚠️ Docker installation completed, but the hello-world test failed."
+    echo "   Try running: sudo docker run hello-world"
+fi
+
 echo "-------------------------"
 echo "🎉 Script Complete! Docker is installed! 🎉"
 echo "-------------------------"
